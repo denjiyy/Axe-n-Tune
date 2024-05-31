@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axe'n'Tune | Yamaha SA2200</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/product-style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="index.html" class="logo"><img src="images/logo/logo.png" class="logo" alt="Axe'n'Tune logo"></a>
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="index.html">Back</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="sign-up.html">Sign Up</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="account.html"><i class="far fa-shopping-bag"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="pro-container">
+            <div class="pro">
+                <img src="images/products/guitar3.png" alt="Yamaha SA2200">
+            </div>
+            <div class="desc">
+                <form action="php/add-to-cart.php" method="post">
+                <div class="pro-description">
+                    <h2 class="product1H2">Yamaha SA2200</h2>
+                    <p class="product1P">
+                        Premium Yamaha SA2200 guitar.
+                    </p>
+                    <h4 class="product1Price">$1699.99</h4>
+                    <input type="hidden" name="product_name" value="Fender Stratocaster">
+                    <input type="hidden" name="product_price" value="1699.99">
+                    <button type="submit" class="normal">Add to Cart</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="comments">
+        <h2>Comments</h2>
+        <form id="commentForm" action="php/submit_comment.php" method="post">
+            <textarea id="comment" name="comment" placeholder="Write your comment here..."></textarea>
+            <input type="hidden" name="productid" value="5">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="commentSection" class="comment-section">
+            <!-- Comments will be displayed here -->
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo/logo.png" alt="Axe'n'Tune logo">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Sofia, bul. Todor Aleksandrov</p>
+            <p><strong>Phone:</strong> +359 2 XXX XXXX</p>
+            <p><strong>Hours:</strong> 07:00 - 18:00, Mon-Sat</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script src="javascript/checkLogin.js" defer></script>
+    <script src="javascript/setUsernameHeader.js" defer></script>
+    <script src="javascript/deleteComment.js" defer></script>
+    <script defer>
+        function fetchComments(productId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/fetch_comments.php?productid=" + productId, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        try {
+                            var comments = JSON.parse(xhr.responseText);
+                            displayComments(comments);
+                        } catch (e) {
+                            console.error("Invalid JSON response: " + xhr.responseText);
+                        }
+                    } else {
+                        console.error("Error: " + xhr.status);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function displayComments(comments) {
+            var commentSection = document.getElementById("commentSection");
+            commentSection.innerHTML = "";
+            comments.forEach(function(commentData) {
+                var newComment = document.createElement("div");
+                newComment.innerHTML = "<strong>" + commentData.username + "</strong>: " + commentData.comment;
+                newComment.classList.add("comment");
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.dataset.id = commentData.commentId;
+                deleteButton.addEventListener("click", function() {
+                    deleteComment(commentData.commentId);
+                });
+                newComment.appendChild(deleteButton);
+
+                commentSection.appendChild(newComment);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var productId = 5;
+            fetchComments(productId);
+        });
+    </script>
+</body>
+</html>

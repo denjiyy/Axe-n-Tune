@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Axe'n'Tune</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section id="header">
+        <a href="index.html" class="logo"><img src="images/logo/logo.png" class="logo" alt="Axe'n'Tune logo"></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Back</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="my-account" class="section-p1">
+        <div class="account-info">
+            <h2>My Account</h2>
+            <div class="profile-picture">
+                <img src="images/profile/user-avatar.png" alt="Profile Picture">
+            </div>
+            <div class="username">
+                <p>Username: <span></span></p>
+            </div>
+        </div>
+        <div class="orders">
+            <h2>My Orders</h2>
+            <ol id="order-list"></ol>
+        </div>
+        <div class="settings">
+            <h2>Account Settings</h2>
+            <button id="edit" class="normal edit-profile">Edit Profile</button>
+            <button id="logout" class="normal">Log Out</button>
+            <button id="delete" class="normal">Delete Profile</button>
+        </div>
+        <section id="edit-form">
+            <div class="form">
+                <form action="php/edit_account.php" method="post">
+                    <label for="new_username">New Username:</label>
+                    <input type="text" id="new_username" name="new_username" required>
+                    <label for="new_password">New Password:</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                    <button type="submit" class="normal">Update</button>
+                </form>
+            </div>
+        </section>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo/logo.png" alt="Axe'n'Tune logo">
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> Sofia, bul. Todor Aleksandrov</p>
+            <p><strong>Phone:</strong> +359 2 XXX XXXX</p>
+            <p><strong>Hours:</strong> 07:00 - 18:00, Mon-Sat</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script src="javascript/logout.js" defer></script>
+    <script src="javascript/editButtonShow.js" defer></script>
+    <script src="javascript/delete-account.js" defer></script>
+    <script src="javascript/setUsernameSpan.js" defer></script>
+    <script src="javascript/displayCart.js" defer></script>
+</body>
+</html>
